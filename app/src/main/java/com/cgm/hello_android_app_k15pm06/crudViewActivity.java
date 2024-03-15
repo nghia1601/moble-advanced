@@ -2,7 +2,6 @@ package com.cgm.hello_android_app_k15pm06;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -33,22 +32,26 @@ public class crudViewActivity extends AppCompatActivity {
             }
         });
 
-        Button buttonAdd = findViewById(R.id.buttonAdd);
+        Button buttonAdd = findViewById(R.id.buttonUpdate);
         buttonAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 EditText editTextId = findViewById(R.id.editTextId);
-                EditText editTextName = findViewById(R.id.editTextName);
+                EditText editTextTitle = findViewById(R.id.editTextTitle);
                 EditText editTextPrice = findViewById(R.id.editTextPrice);
+                EditText editTextDescription = findViewById(R.id.editTextDescription);
+                EditText editTextCategory = findViewById(R.id.editTextCategory);
                 EditText editTextImage = findViewById(R.id.editTextImage);
 
                 int id = Integer.parseInt(editTextId.getText().toString());
-                String name = editTextName.getText().toString();
+                String title = editTextTitle.getText().toString();
                 double price = Double.parseDouble(editTextPrice.getText().toString());
+                String description = editTextDescription.getText().toString();
+                String category = editTextCategory.getText().toString();
                 String image = editTextImage.getText().toString();
 
                 // Tạo đối tượng Product từ dữ liệu nhập vào
-                Product newProduct = new Product(id, name, price, image);
+                Product newProduct = new Product(id, title, price, description, category, image);
 
 
                 // Gọi phương thức addProduct để thêm sản phẩm mới
@@ -59,7 +62,7 @@ public class crudViewActivity extends AppCompatActivity {
 
     private void addProduct(Product product) {
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://10.0.17.1:8080/hello-web-app/rest/")
+                .baseUrl("http://192.168.100.5:8080/hello-web-app/rest/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         ProductService productService = retrofit.create(ProductService.class);

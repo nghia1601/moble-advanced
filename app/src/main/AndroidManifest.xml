@@ -18,6 +18,9 @@
         <activity
             android:name=".crudViewActivity"
             android:exported="false" />
+        <activity android:name=".DeleteActivity"/>
+        <activity android:name=".EditActivity"/>
+
         <activity
             android:name=".MainActivity"
             android:exported="true">
