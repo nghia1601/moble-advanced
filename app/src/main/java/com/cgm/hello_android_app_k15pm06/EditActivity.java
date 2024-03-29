@@ -45,7 +45,7 @@ public class EditActivity extends AppCompatActivity {
                 String productIdStr = editTextId.getText().toString();
                 if (!productIdStr.isEmpty()) {
                     int productId = Integer.parseInt(productIdStr);
-                    // Gọi phương thức để load sản phẩm theo ID
+                    // goi phuong thuc de load du lieu theo id
                     loadProduct(productId);
                 } else {
                     Toast.makeText(EditActivity.this, "Please enter product ID", Toast.LENGTH_SHORT).show();
@@ -59,11 +59,11 @@ public class EditActivity extends AppCompatActivity {
                 finish(); // Quay lại MainActivity
             }
         });
-        // Thêm sự kiện click cho nút buttonUpdate
+        // them su kien cho nut buttonUpdate
         buttonUpdate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Lấy thông tin sản phẩm từ các trường EditText
+                // lay thong tin san pham tu cac EditText
                 int productId = Integer.parseInt(editTextId.getText().toString());
                 String title = editTextTitle.getText().toString();
                 double price = Double.parseDouble(editTextPrice.getText().toString());
@@ -71,20 +71,20 @@ public class EditActivity extends AppCompatActivity {
                 String category = editTextCategory.getText().toString();
                 String image = editTextImage.getText().toString();
 
-                // Tạo đối tượng Product mới với thông tin cập nhật
+                // tao doi tuong product moi dethem thong tin vua nhap
                 Product updatedProduct = new Product(productId, title, price, description, category, image);
 
-                // Gọi phương thức để cập nhật sản phẩm
+                // goi phuong thuc update
                 updateProduct(updatedProduct);
             }
         });
 
 
     }
-    // Phương thức cập nhật sản phẩm
+    // phuong thuc cap nhap san pham
     private void updateProduct(Product product) {
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://192.168.100.5:8080/hello-web-app/rest/")
+                .baseUrl("http://10.0.17.28:8080/hello-web-app/rest/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         ProductService productService = retrofit.create(ProductService.class);
@@ -110,7 +110,7 @@ public class EditActivity extends AppCompatActivity {
 
     private void loadProduct(int productId) {
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://192.168.100.5:8080/hello-web-app/rest/")
+                .baseUrl("http://10.0.17.28:8080/hello-web-app/rest/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         ProductService productService = retrofit.create(ProductService.class);

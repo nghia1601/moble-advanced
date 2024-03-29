@@ -3,26 +3,23 @@ package com.cgm.hello_android_app_k15pm06;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
-
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
-import android.widget.PopupMenu;
 import android.widget.Toast;
+import android.os.Bundle;
+import android.widget.ImageView;
+
+import com.bumptech.glide.Glide;
 
 import com.cgm.hello_android_app_k15pm06.entities.Product;
 import com.cgm.hello_android_app_k15pm06.service.ProductService;
-import com.cgm.hello_android_app_k15pm06.EditActivity;
 
-
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import retrofit2.Call;
@@ -30,7 +27,6 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
-
 
 public class MainActivity extends AppCompatActivity {
     private ListView listView;
@@ -43,41 +39,18 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        ListView listView = findViewById(R.id.productListView);
+
+        listView = findViewById(R.id.productListView);
 
         // Khởi tạo Retrofit và ProductService
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://192.168.100.5:8080/hello-web-app/rest/")
+                .baseUrl("http://10.0.18.248:8080/hello-web-app/rest/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         ProductService productService = retrofit.create(ProductService.class);
 
-        Call<List<Product>> call = productService.getAllProducts();//Call<List<Product>>
-
-        call.enqueue(new Callback<List<Product>>() {
-            @Override
-            public void onResponse(Call<List<Product>> call, Response<List<Product>> response) {
-                if (response.isSuccessful()) {
-                    productListData = response.body();
-                    adapter = new ArrayAdapter<>(MainActivity.this,
-                            android.R.layout.simple_list_item_1, productListData);
-                    listView.setAdapter(adapter);
-
-                    // Sự kiện click cho mỗi sản phẩm trong danh sách
-                    listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                        @Override
-                        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                            showMenuDialog(position);
-                        }
-                    });
-                }
-            }
-
-            @Override
-            public void onFailure(Call<List<Product>> call, Throwable t) {
-
-            }
-        });
+        // Load danh sách sản phẩm
+        loadProductList(productService);
 
         // Chuyển sang trang thêm sản phẩm
         Button buttonAddProduct = findViewById(R.id.buttonAddProduct);
@@ -99,8 +72,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-
-        // Trong phương thức onCreate của MainActivity
+        // Chuyển sang trang sửa sản phẩm
         Button buttonEditProduct = findViewById(R.id.buttonEditProduct);
         buttonEditProduct.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -116,17 +88,13 @@ public class MainActivity extends AppCompatActivity {
         buttonReloadProductList.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                loadProductList(productService, listView);
+                loadProductList(productService);
             }
         });
-
-
-
     }
 
-
     // Phương thức để load lại danh sách sản phẩm từ API
-    private void loadProductList(ProductService productService, final ListView listView) {
+    private void loadProductList(ProductService productService) {
         Call<List<Product>> call = productService.getAllProducts();
 
         call.enqueue(new Callback<List<Product>>() {
@@ -155,6 +123,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+
     // Phương thức hiển thị AlertDialog với menu
     private void showMenuDialog(final int position) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -163,7 +132,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(DialogInterface dialog, int which) {
                 switch (which) {
                     case 0: // Sửa
-
+                        // Xử lý sửa sản phẩm
                         break;
                     case 1: // Xóa
                         // Xử lý xóa sản phẩm
@@ -174,9 +143,4 @@ public class MainActivity extends AppCompatActivity {
         AlertDialog dialog = builder.create();
         dialog.show();
     }
-
-
-
-
-
 }

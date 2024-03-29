@@ -76,7 +76,8 @@ public class Product
         return "Product{" +
                 "id='" + id + '\'' +
                 "name='" + title + '\'' +
-                ", price=" + price +
+                ", price=" + price + '\'' +
+                ", image=" + image +
                 '}';
     }
 }

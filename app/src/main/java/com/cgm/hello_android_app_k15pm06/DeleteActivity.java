@@ -52,7 +52,7 @@ public class DeleteActivity extends AppCompatActivity {
 
     private void deleteProduct(int productId) {
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://192.168.100.5:8080/hello-web-app/rest/")
+                .baseUrl("http://10.0.17.28:8080/hello-web-app/rest/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         ProductService productService = retrofit.create(ProductService.class);

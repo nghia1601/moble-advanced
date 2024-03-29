@@ -36,6 +36,7 @@ public class crudViewActivity extends AppCompatActivity {
         buttonAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                int id = 1;
                 EditText editTextId = findViewById(R.id.editTextId);
                 EditText editTextTitle = findViewById(R.id.editTextTitle);
                 EditText editTextPrice = findViewById(R.id.editTextPrice);
@@ -43,7 +44,7 @@ public class crudViewActivity extends AppCompatActivity {
                 EditText editTextCategory = findViewById(R.id.editTextCategory);
                 EditText editTextImage = findViewById(R.id.editTextImage);
 
-                int id = Integer.parseInt(editTextId.getText().toString());
+//                int id = Integer.parseInt(editTextId.getText().toString());
                 String title = editTextTitle.getText().toString();
                 double price = Double.parseDouble(editTextPrice.getText().toString());
                 String description = editTextDescription.getText().toString();
@@ -62,7 +63,7 @@ public class crudViewActivity extends AppCompatActivity {
 
     private void addProduct(Product product) {
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://192.168.100.5:8080/hello-web-app/rest/")
+                .baseUrl("http://10.0.17.28:8080/hello-web-app/rest/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         ProductService productService = retrofit.create(ProductService.class);
