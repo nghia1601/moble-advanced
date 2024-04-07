@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp">
+
+    <ImageView
+        android:id="@+id/imageDetail"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp" />
+
+    <TextView
+        android:id="@+id/titleDetail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/imageDetail"
+        android:layout_centerHorizontal="true"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        tools:text="Product Name" />
+
+    <TextView
+        android:id="@+id/priceDetail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/titleDetail"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="8dp"
+        android:textSize="18sp"
+        tools:text="Price: $0.00" />
+
+    <TextView
+        android:id="@+id/descriptionDetail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/priceDetail"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="8dp"
+        android:textSize="16sp"
+        tools:text="Product Description" />
+
+    <TextView
+        android:id="@+id/categoryDetail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/descriptionDetail"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="8dp"
+        android:textSize="16sp"
+        tools:text="Category" />
+
+
+</RelativeLayout>

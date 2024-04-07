@@ -1,15 +1,15 @@
 package com.cgm.hello_android_app_k15pm06.entities;
 
-public class Product
-{
+import android.os.Parcel;
+import android.os.Parcelable;
+
+public class Product implements Parcelable {
     private int id;
     private String title;
-
     private double price;
     private String description;
     private String category;
     private String image;
-
 
     public Product() {
     }
@@ -22,6 +22,27 @@ public class Product
         this.category = category;
         this.image = image;
     }
+
+    protected Product(Parcel in) {
+        id = in.readInt();
+        title = in.readString();
+        price = in.readDouble();
+        description = in.readString();
+        category = in.readString();
+        image = in.readString();
+    }
+
+    public static final Creator<Product> CREATOR = new Creator<Product>() {
+        @Override
+        public Product createFromParcel(Parcel in) {
+            return new Product(in);
+        }
+
+        @Override
+        public Product[] newArray(int size) {
+            return new Product[size];
+        }
+    };
 
     public int getId() {
         return id;
@@ -74,10 +95,27 @@ public class Product
     @Override
     public String toString() {
         return "Product{" +
-                "id='" + id + '\'' +
-                "name='" + title + '\'' +
-                ", price=" + price + '\'' +
-                ", image=" + image +
+                "id=" + id +
+                ", title='" + title + '\'' +
+                ", price=" + price +
+                ", description='" + description + '\'' +
+                ", category='" + category + '\'' +
+                ", image='" + image + '\'' +
                 '}';
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(id);
+        dest.writeString(title);
+        dest.writeDouble(price);
+        dest.writeString(description);
+        dest.writeString(category);
+        dest.writeString(image);
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
     }
 }
