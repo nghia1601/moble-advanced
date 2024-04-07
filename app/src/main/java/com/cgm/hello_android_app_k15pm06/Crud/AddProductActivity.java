@@ -43,7 +43,7 @@ public class AddProductActivity extends AppCompatActivity {
 
         // Khởi tạo Retrofit và ProductService
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://192.168.100.9:8080/hello-web-app/rest/")
+                .baseUrl("http://192.168.1.25:8080/hello-web-app/rest/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         productService = retrofit.create(ProductService.class);
@@ -84,38 +84,15 @@ public class AddProductActivity extends AppCompatActivity {
                             // Thêm sản phẩm thành công
                             Toast.makeText(AddProductActivity.this, "Product added successfully", Toast.LENGTH_SHORT).show();
 
+                            // Set result code to indicate success
+                            setResult(RESULT_OK);
 
-
-                            // Cập nhật danh sách sản phẩm mới nhất
-                            loadProductList();
+                            // Finish activity
+                            finish();
                         } else {
                             // Thêm sản phẩm thất bại
                             Toast.makeText(AddProductActivity.this, "Failed to add product", Toast.LENGTH_SHORT).show();
                         }
-                    }
-                    private void loadProductList() {
-                        Call<List<Product>> call = productService.getAllProducts();
-
-                        call.enqueue(new Callback<List<Product>>() {
-                            @Override
-                            public void onResponse(Call<List<Product>> call, Response<List<Product>> response) {
-                                if (response.isSuccessful()) {
-                                    productList.clear(); // Xóa dữ liệu hiện tại
-                                    productList.addAll(response.body()); // Thêm dữ liệu mới
-                                    // Cập nhật adapter để hiển thị danh sách sản phẩm mới
-                                    productAdapter.setData(productList);
-                                    productAdapter.notifyDataSetChanged();
-                                } else {
-                                    Toast.makeText(AddProductActivity.this, "Failed to load product list", Toast.LENGTH_SHORT).show();
-                                }
-                            }
-
-                            @Override
-                            public void onFailure(Call<List<Product>> call, Throwable t) {
-                                // Xử lý lỗi khi không thể tải danh sách sản phẩm
-                                Toast.makeText(AddProductActivity.this, "Failed to load product list", Toast.LENGTH_SHORT).show();
-                            }
-                        });
                     }
 
 
