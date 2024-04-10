@@ -21,6 +21,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class EditProductActivity extends AppCompatActivity {
 
+    // Khai báo các biến
     private EditText edtTitle, edtPrice, edtDescription, edtCategory, edtImage;
     private Button btnUpdate;
     private ProductService productService;
@@ -31,7 +32,7 @@ public class EditProductActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.edit_product_layout);
 
-        // Initialize views
+        // Khởi tạo các view
         edtTitle = findViewById(R.id.edtTitle);
         edtPrice = findViewById(R.id.edtPrice);
         edtDescription = findViewById(R.id.edtDescription);
@@ -39,17 +40,17 @@ public class EditProductActivity extends AppCompatActivity {
         edtImage = findViewById(R.id.edtImage);
         btnUpdate = findViewById(R.id.btnUpdate);
 
-        // Initialize Retrofit
+        // Khởi tạo Retrofit
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://192.168.1.25:8080/hello-web-app/rest/")
+                .baseUrl("http://192.168.100.3:8080/hello-web-app/rest/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         productService = retrofit.create(ProductService.class);
 
-        // Get product data from intent
+        // Lấy dữ liệu sản phẩm từ Intent
         productToUpdate = getIntent().getParcelableExtra("PRODUCT");
         if (productToUpdate != null) {
-            // Set product data to views
+            // Hiển thị dữ liệu sản phẩm trên giao diện
             edtTitle.setText(productToUpdate.getTitle());
             edtPrice.setText(String.valueOf(productToUpdate.getPrice()));
             edtDescription.setText(productToUpdate.getDescription());
@@ -57,55 +58,55 @@ public class EditProductActivity extends AppCompatActivity {
             edtImage.setText(productToUpdate.getImage());
         }
 
-        // Set click listener for update button
+        // Xử lý sự kiện khi nhấn nút "Cập nhật"
         btnUpdate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Update product data
+                // Cập nhật thông tin sản phẩm
                 updateProduct();
             }
         });
     }
 
+    // Phương thức để cập nhật sản phẩm
     private void updateProduct() {
-        // Get updated product data from views
+        // Lấy thông tin sản phẩm được cập nhật từ các view
         String title = edtTitle.getText().toString().trim();
         double price = Double.parseDouble(edtPrice.getText().toString().trim());
         String description = edtDescription.getText().toString().trim();
         String category = edtCategory.getText().toString().trim();
         String image = edtImage.getText().toString().trim();
 
-        // Update product object
+        // Cập nhật đối tượng sản phẩm
         productToUpdate.setTitle(title);
         productToUpdate.setPrice(price);
         productToUpdate.setDescription(description);
         productToUpdate.setCategory(category);
         productToUpdate.setImage(image);
 
-        // Call API to update product
+        // Gọi API để cập nhật sản phẩm
         Call<Void> call = productService.updateProduct(productToUpdate.getId(), productToUpdate);
         call.enqueue(new Callback<Void>() {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
                 if (response.isSuccessful()) {
-                    // Product updated successfully
-                    Toast.makeText(EditProductActivity.this, "Product updated successfully", Toast.LENGTH_SHORT).show();
-                    // Set result code to indicate success
+                    // Cập nhật sản phẩm thành công
+                    Toast.makeText(EditProductActivity.this, "Cập nhật sản phẩm thành công", Toast.LENGTH_SHORT).show();
+                    // Đặt mã kết quả để chỉ định thành công
                     setResult(RESULT_OK);
-                    // Finish activity
+                    // Kết thúc hoạt động
                     finish();
                 } else {
-                    // Failed to update product
-                    Toast.makeText(EditProductActivity.this, "Failed to update product", Toast.LENGTH_SHORT).show();
+                    // Không thể cập nhật sản phẩm
+                    Toast.makeText(EditProductActivity.this, "Không thể cập nhật sản phẩm", Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(Call<Void> call, Throwable t) {
-                // Error occurred while updating product
-                Toast.makeText(EditProductActivity.this, "Failed to update product", Toast.LENGTH_SHORT).show();
+                // Lỗi xảy ra khi cập nhật sản phẩm
+                Toast.makeText(EditProductActivity.this, "Lỗi khi cập nhật sản phẩm", Toast.LENGTH_SHORT).show();
             }
         });
     }
-
 }

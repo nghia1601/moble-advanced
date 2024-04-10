@@ -26,6 +26,10 @@
             android:label="Edit Product" />
 
         <activity
+            android:name=".Cart.CartActivity"
+            android:label="Cart Activity" />
+
+        <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>

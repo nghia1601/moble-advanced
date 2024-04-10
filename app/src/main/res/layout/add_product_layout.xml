@@ -15,7 +15,7 @@
         android:textStyle="bold" />
 
     <EditText
-        android:id="@+id/edtTitle"
+        android:id="@+id/addTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
@@ -30,7 +30,7 @@
         android:textStyle="bold" />
 
     <EditText
-        android:id="@+id/edtPrice"
+        android:id="@+id/addPrice"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Price"
@@ -45,7 +45,7 @@
         android:textStyle="bold" />
 
     <EditText
-        android:id="@+id/edtDescription"
+        android:id="@+id/addDescription"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Description" />
@@ -59,7 +59,7 @@
         android:textStyle="bold" />
 
     <EditText
-        android:id="@+id/edtCategory"
+        android:id="@+id/addCategory"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Category" />
@@ -73,7 +73,7 @@
         android:textStyle="bold" />
 
     <EditText
-        android:id="@+id/edtImage"
+        android:id="@+id/addImage"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Image URL" />

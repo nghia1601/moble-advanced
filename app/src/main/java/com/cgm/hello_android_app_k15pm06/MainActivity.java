@@ -4,13 +4,17 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.view.ContextMenu;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.cgm.hello_android_app_k15pm06.Cart.CartActivity;
 import com.cgm.hello_android_app_k15pm06.Crud.AddProductActivity;
 import com.cgm.hello_android_app_k15pm06.Crud.EditProductActivity;
 import com.cgm.hello_android_app_k15pm06.entities.Product;
@@ -33,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
     private ProductService productService;
 
     // Request code for startActivityForResult
-    private static final int EDIT_PRODUCT_REQUEST_CODE = 1;
+    private static final int reload = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,9 +46,20 @@ public class MainActivity extends AppCompatActivity {
 
         productListView = findViewById(R.id.productListView);
 
+        ImageView cartIcon = findViewById(R.id.cartIcon);
+        // Gắn sự kiện click cho biểu tượng cart
+        cartIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Chuyển đến trang cart
+                Intent intent = new Intent(MainActivity.this, CartActivity.class);
+                startActivity(intent);
+            }
+        });
+
         // Initialize Retrofit và ProductService
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://192.168.1.25:8080/hello-web-app/rest/")
+                .baseUrl("http://192.168.100.3:8080/hello-web-app/rest/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         productService = retrofit.create(ProductService.class);
@@ -94,18 +109,21 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onContextItemSelected(MenuItem item) {
         AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
+        //info.position chứa vị trí xác định mục được chọn trong listview
         int position = info.position;
-        Product selectedProduct = productList.get(position);
+        //phương thức get(position) lấy vị trí trong productList
+            Product selectedProduct = productList.get(position);
         if (item.getItemId() == R.id.add_product) {
             // Chuyển sang màn hình thêm sản phẩm mới
             Intent intent = new Intent(MainActivity.this, AddProductActivity.class);
-            startActivityForResult(intent, EDIT_PRODUCT_REQUEST_CODE);
+            startActivityForResult(intent, reload);
             return true;
         } else if (item.getItemId() == R.id.edit_product) {
             // Chuyển sang màn hình chỉnh sửa sản phẩm và gửi thông tin sản phẩm cần chỉnh sửa
             Intent intent = new Intent(MainActivity.this, EditProductActivity.class);
             intent.putExtra("PRODUCT", selectedProduct);
-            startActivityForResult(intent, EDIT_PRODUCT_REQUEST_CODE);
+            //mong đợi kết quả trả về với mã yêu cầu là reload
+            startActivityForResult(intent, reload);
             return true;
         } else if (item.getItemId() == R.id.delete_product) {
             // Gọi phương thức để xóa sản phẩm
@@ -116,11 +134,11 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    // Phương thức để xử lý kết quả trả về từ EditProductActivity
+    // Phương thức để xử lý kết quả trả về từ EditProductActivity, addproductactivity
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == EDIT_PRODUCT_REQUEST_CODE && resultCode == RESULT_OK) {
+        if (requestCode == reload && resultCode == RESULT_OK) {
             // Nếu resultCode là RESULT_OK, ta cập nhật lại danh sách sản phẩm
             loadProductList();
         }

@@ -28,13 +28,13 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class AddProductActivity extends AppCompatActivity {
 
-    private EditText edtTitle, edtPrice, edtDescription, edtCategory, edtImage;
+    private EditText addTitle, addPrice, addDescription, addCategory, addImage;
     private Button btnAddProduct;
     private ProductService productService;
 
-    private List<Product> productList = new ArrayList<>();
-
-    private ProductAdapter productAdapter;
+//    private List<Product> productList = new ArrayList<>();
+//
+//    private ProductAdapter productAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,17 +43,17 @@ public class AddProductActivity extends AppCompatActivity {
 
         // Khởi tạo Retrofit và ProductService
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://192.168.1.25:8080/hello-web-app/rest/")
+                .baseUrl("http://192.168.100.3:8080/hello-web-app/rest/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         productService = retrofit.create(ProductService.class);
 
         // Ánh xạ các view từ layout
-        edtTitle = findViewById(R.id.edtTitle);
-        edtPrice = findViewById(R.id.edtPrice);
-        edtDescription = findViewById(R.id.edtDescription);
-        edtCategory = findViewById(R.id.edtCategory);
-        edtImage = findViewById(R.id.edtImage);
+        addTitle = findViewById(R.id.addTitle);
+        addPrice = findViewById(R.id.addPrice);
+        addDescription = findViewById(R.id.addDescription);
+        addCategory = findViewById(R.id.addCategory);
+        addImage = findViewById(R.id.addImage);
         btnAddProduct = findViewById(R.id.btnAddProduct);
 
         // Xử lý sự kiện khi nhấn nút thêm sản phẩm
@@ -61,11 +61,11 @@ public class AddProductActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // Lấy thông tin sản phẩm từ các trường nhập liệu
-                String title = edtTitle.getText().toString().trim();
-                double price = Double.parseDouble(edtPrice.getText().toString().trim());
-                String description = edtDescription.getText().toString().trim();
-                String category = edtCategory.getText().toString().trim();
-                String image = edtImage.getText().toString().trim();
+                String title = addTitle.getText().toString().trim();
+                double price = Double.parseDouble(addPrice.getText().toString().trim());
+                String description = addDescription.getText().toString().trim();
+                String category = addCategory.getText().toString().trim();
+                String image = addImage.getText().toString().trim();
 
                 // Kiểm tra xem các trường nhập liệu có trống không
                 if (title.isEmpty() || description.isEmpty() || category.isEmpty() || image.isEmpty()) {
