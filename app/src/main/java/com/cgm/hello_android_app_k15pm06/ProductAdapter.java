@@ -74,7 +74,7 @@ public class ProductAdapter extends BaseAdapter {
         holder.descriptionTextView.setText("Description:" +" "+product.getDescription());
 
 
-        String baseUrl = "http://192.168.100.3:8080/hello-web-app/img/";
+        String baseUrl = "http://192.168.100.5:8080/hello-web-app/img/";
         String imageUrl = baseUrl + product.getImage();
 
         // Load ảnh từ URL vào ImageView bằng Picasso

@@ -37,16 +37,16 @@
     </LinearLayout>
 
     <ImageView
-        android:id="@+id/btMinus"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:src="@drawable/minus" />
-
-    <ImageView
         android:id="@+id/btPlus"
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:src="@drawable/plus" />
+
+    <ImageView
+        android:id="@+id/btMinus"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:src="@drawable/minus" />
 
     <ImageView
         android:id="@+id/removeFromCart"

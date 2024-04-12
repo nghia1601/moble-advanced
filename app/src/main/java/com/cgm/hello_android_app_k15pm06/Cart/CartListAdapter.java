@@ -42,7 +42,11 @@ public class CartListAdapter extends ArrayAdapter<CartItem> {
         TextView productName = view.findViewById(R.id.productName);
         TextView productPrice = view.findViewById(R.id.productPrice);
         TextView productQuantity = view.findViewById(R.id.productQuantity);
+        // nút xóa sản phẩm khỏi giỏ hàng
         ImageView removeFromCart = view.findViewById(R.id.removeFromCart);
+        //nút tăng giảm sản phẩm trong giỏ hàng
+        ImageView btPlus = view.findViewById(R.id.btPlus);
+        ImageView btMinus = view.findViewById(R.id.btMinus);
 
         // Hiển thị thông tin sản phẩm trong giỏ hàng
         productName.setText(cartItem.getProductName());
@@ -64,7 +68,45 @@ public class CartListAdapter extends ArrayAdapter<CartItem> {
                 notifyDataSetChanged();
             }
         });
+        // Xử lý sự kiện click để tăng số lượng sản phẩm
+        btPlus.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Tăng số lượng sản phẩm
+                int newQuantity = cartItem.getQuantity() + 1;
+                cartManager.updateQuantity(cartItem.getId(), newQuantity);
+                // Cập nhật lại số lượng hiển thị trong danh sách
+                cartItem.setQuantity(newQuantity);
+                notifyDataSetChanged();
 
+
+            }
+        });
+
+        // Xử lý sự kiện click để giảm số lượng sản phẩm
+        btMinus.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (cartItem.getQuantity() > 1) {
+                    // Giảm số lượng sản phẩm
+                    int newQuantity = cartItem.getQuantity() - 1;
+                    cartManager.updateQuantity(cartItem.getId(), newQuantity);
+                    // Cập nhật lại số lượng hiển thị trong danh sách
+                    cartItem.setQuantity(newQuantity);
+                    notifyDataSetChanged();
+
+
+                } else {
+                    // Nếu số lượng là 1, xóa sản phẩm khỏi giỏ hàng
+                    cartManager.removeFromCart(cartItem.getId());
+                    // Cập nhật lại danh sách sản phẩm
+                    cartItemList.remove(position);
+                    notifyDataSetChanged();
+
+
+                }
+            }
+        });
         return view;
     }
 

@@ -3,6 +3,7 @@ package com.cgm.hello_android_app_k15pm06.Cart;
 import android.os.Bundle;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -14,6 +15,7 @@ import java.util.List;
 public class CartActivity extends AppCompatActivity {
     private ListView cartListView;
     private List<CartItem> cartItemList;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +33,17 @@ public class CartActivity extends AppCompatActivity {
         // Tạo adapter tùy chỉnh và thiết lập cho ListView
         CartListAdapter adapter = new CartListAdapter(this, cartItemList);
         cartListView.setAdapter(adapter);
+
+        // Hiển thị tổng tiền của các sản phẩm trong giỏ hàng
+        TextView totalPriceTextView = findViewById(R.id.totalPriceTextView);
+        double totalPrice = cartManager.getTotalPrice();
+        totalPriceTextView.setText("Total Price: $" + totalPrice);
+
+
     }
+
+
+
+
 }
 

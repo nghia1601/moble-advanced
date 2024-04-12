@@ -4,7 +4,9 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.widget.TextView;
 
+import com.cgm.hello_android_app_k15pm06.R;
 import com.cgm.hello_android_app_k15pm06.entities.Product;
 
 import java.util.ArrayList;
@@ -13,8 +15,11 @@ import java.util.List;
 public class CartManager {
     private CartDatabaseHelper dbHelper;
 
+
+
     public CartManager(Context context) {
         dbHelper = new CartDatabaseHelper(context);
+
     }
 
     public void addToCart(Product product, int quantity) {
@@ -79,10 +84,46 @@ public class CartManager {
         return cartItemList;
     }
 
+    // xóa sản phẩm ra khỏi giỏ hàng sau khi click vào thùng rác
     public void removeFromCart(int itemId) {
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         db.delete("cart", "id=?", new String[]{String.valueOf(itemId)});
         db.close();
     }
+
+    // tăng và giảm số lượng sản phẩm trong giỏ hàng
+    public void updateQuantity(int itemId, int newQuantity) {
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put("quantity", newQuantity);
+        db.update("cart", values, "id=?", new String[]{String.valueOf(itemId)});
+        db.close();
+    }
+
+
+    //tính tổng tiền số sản phẩm có trong giỏ hàng
+    public double getTotalPrice() {
+        double totalPrice = 0;
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
+
+        // Truy vấn tổng tiền của các mục trong giỏ hàng
+        String selectQuery = "SELECT SUM(quantity * price) AS total FROM cart";
+        Cursor cursor = db.rawQuery(selectQuery, null);
+
+        // Lấy tổng tiền từ kết quả truy vấn
+        if (cursor.moveToFirst()) {
+            totalPrice = cursor.getDouble(cursor.getColumnIndex("total"));
+        }
+
+        // Đóng kết nối CSDL
+        cursor.close();
+        db.close();
+
+        return totalPrice;
+    }
+
+
+
+
 
 }

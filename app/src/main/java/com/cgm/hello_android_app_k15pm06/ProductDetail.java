@@ -39,7 +39,7 @@ public class ProductDetail extends AppCompatActivity {
 
 
         // Tải ảnh vào ImageView bằng Picasso
-        String baseUrl = "http://192.168.100.3:8080/hello-web-app/img/";
+        String baseUrl = "http://192.168.100.5:8080/hello-web-app/img/";
         String imageUrl = baseUrl + product.getImage();
         ImageView imageView = findViewById(R.id.imageDetail);
         Picasso.get().load(imageUrl).into(imageView);
