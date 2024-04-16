@@ -1,5 +1,7 @@
 package com.cgm.hello_android_app_k15pm06;
 
+
+
 import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
@@ -8,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+
 
 import com.squareup.picasso.Picasso;
 import com.cgm.hello_android_app_k15pm06.entities.Product;
@@ -74,7 +77,7 @@ public class ProductAdapter extends BaseAdapter {
         holder.descriptionTextView.setText("Description:" +" "+product.getDescription());
 
 
-        String baseUrl = "http://192.168.100.5:8080/hello-web-app/img/";
+        String baseUrl = "http://192.168.1.25:8080/hello-web-app/img/";
         String imageUrl = baseUrl + product.getImage();
 
         // Load ảnh từ URL vào ImageView bằng Picasso

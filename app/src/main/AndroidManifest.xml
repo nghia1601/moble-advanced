@@ -18,6 +18,16 @@
 
 
         <activity
+            android:name=".Cart.CartActivity"
+            android:label="Cart Activity" />
+
+        <activity
+            android:name=".CartCheckout.CheckoutActivity"
+            android:label="Checkout Cart Activity" />
+
+
+
+        <activity
             android:name=".Crud.AddProductActivity"
             android:label="Add Product" />
 
@@ -25,9 +35,7 @@
             android:name=".Crud.EditProductActivity"
             android:label="Edit Product" />
 
-        <activity
-            android:name=".Cart.CartActivity"
-            android:label="Cart Activity" />
+
 
         <activity
             android:name=".MainActivity"

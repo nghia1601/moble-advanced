@@ -6,6 +6,16 @@
     android:orientation="vertical"
     android:padding="16dp">
 
+    <!-- Tiêu đề "Sửa Sản Phẩm" -->
+    <TextView
+        android:id="@+id/textViewEditProductTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Sửa Sản Phẩm"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:layout_marginBottom="16dp"/>
+
     <TextView
         android:id="@+id/textViewTitle"
         android:layout_width="wrap_content"

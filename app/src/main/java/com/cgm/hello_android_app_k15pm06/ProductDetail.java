@@ -10,7 +10,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.cgm.hello_android_app_k15pm06.Cart.CartActivity;
+
 import com.cgm.hello_android_app_k15pm06.Cart.CartManager;
 import com.cgm.hello_android_app_k15pm06.entities.Product;
 import com.squareup.picasso.Picasso;
@@ -39,7 +39,7 @@ public class ProductDetail extends AppCompatActivity {
 
 
         // Tải ảnh vào ImageView bằng Picasso
-        String baseUrl = "http://192.168.100.5:8080/hello-web-app/img/";
+        String baseUrl = "http://192.168.1.25:8080/hello-web-app/img/";
         String imageUrl = baseUrl + product.getImage();
         ImageView imageView = findViewById(R.id.imageDetail);
         Picasso.get().load(imageUrl).into(imageView);

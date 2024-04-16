@@ -9,6 +9,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+
 import com.cgm.hello_android_app_k15pm06.R;
 import com.cgm.hello_android_app_k15pm06.entities.Product;
 import com.cgm.hello_android_app_k15pm06.service.ProductService;
@@ -42,7 +43,7 @@ public class EditProductActivity extends AppCompatActivity {
 
         // Khởi tạo Retrofit
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://192.168.100.5:8080/hello-web-app/rest/")
+                .baseUrl("http://192.168.1.25:8080/hello-web-app/rest/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         productService = retrofit.create(ProductService.class);

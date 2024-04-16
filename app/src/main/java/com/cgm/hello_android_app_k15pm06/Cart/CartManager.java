@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.widget.TextView;
 
+import com.cgm.hello_android_app_k15pm06.CartCheckout.CartItemInfo;
 import com.cgm.hello_android_app_k15pm06.R;
 import com.cgm.hello_android_app_k15pm06.entities.Product;
 
@@ -14,8 +15,6 @@ import java.util.List;
 
 public class CartManager {
     private CartDatabaseHelper dbHelper;
-
-
 
     public CartManager(Context context) {
         dbHelper = new CartDatabaseHelper(context);
@@ -43,7 +42,7 @@ public class CartManager {
             // Nếu sản phẩm chưa có trong giỏ hàng, thêm mới vào
             ContentValues values = new ContentValues();
             values.put("productId", product.getId());
-            values.put("productName", product.getTitle());
+            values.put("title", product.getTitle());
             values.put("quantity", quantity);
             values.put("price", product.getPrice());
             values.put("image", product.getImage()); // Thêm đường dẫn hình ảnh vào cơ sở dữ liệu
@@ -68,12 +67,12 @@ public class CartManager {
             do {
                 int id = cursor.getInt(cursor.getColumnIndex("id"));
                 int productId = cursor.getInt(cursor.getColumnIndex("productId"));
-                String productName = cursor.getString(cursor.getColumnIndex("productName"));
+                String title = cursor.getString(cursor.getColumnIndex("title"));
                 int quantity = cursor.getInt(cursor.getColumnIndex("quantity"));
                 double price = cursor.getDouble(cursor.getColumnIndex("price"));
                 String image = cursor.getString(cursor.getColumnIndex("image"));
 
-                CartItem cartItem = new CartItem(id, productId, productName, quantity, price, image);
+                CartItem cartItem = new CartItem(id, productId, title, quantity, price, image);
                 cartItemList.add(cartItem);
             } while (cursor.moveToNext());
         }
@@ -120,6 +119,42 @@ public class CartManager {
         db.close();
 
         return totalPrice;
+    }
+
+
+    // Thêm phương thức để xóa tất cả các mục trong giỏ hàng
+    public void clearCart() {
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        db.delete("cart", null, null); // Xóa tất cả các hàng từ bảng giỏ hàng
+        db.close();
+    }
+
+
+    //tra ve danh sach doi tuong cart khi checkout
+    public List<CartItemInfo> getCartItemsInfo() {
+        List<CartItemInfo> cartItemsInfo = new ArrayList<>();
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
+
+        // Truy vấn danh sách các mục trong giỏ hàng
+        String selectQuery = "SELECT title, quantity, price FROM cart";
+        Cursor cursor = db.rawQuery(selectQuery, null);
+
+        // Duyệt qua kết quả của truy vấn và thêm các mục vào danh sách
+        if (cursor.moveToFirst()) {
+            do {
+                String title = cursor.getString(cursor.getColumnIndex("title"));
+                int quantity = cursor.getInt(cursor.getColumnIndex("quantity"));
+                double price = cursor.getDouble(cursor.getColumnIndex("price"));
+
+                CartItemInfo cartItemInfo = new CartItemInfo(title, quantity, price);
+                cartItemsInfo.add(cartItemInfo);
+            } while (cursor.moveToNext());
+        }
+
+        // Đóng kết nối CSDL và trả về danh sách mục trong giỏ hàng
+        cursor.close();
+        db.close();
+        return cartItemsInfo;
     }
 
 

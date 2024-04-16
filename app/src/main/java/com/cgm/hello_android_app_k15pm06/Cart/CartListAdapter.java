@@ -39,7 +39,7 @@ public class CartListAdapter extends ArrayAdapter<CartItem> {
 
         // Ánh xạ các thành phần của layout
         ImageView productImage = view.findViewById(R.id.productImage); // Thêm dòng này để ánh xạ ImageView
-        TextView productName = view.findViewById(R.id.productName);
+        TextView productTitle = view.findViewById(R.id.productTitle);
         TextView productPrice = view.findViewById(R.id.productPrice);
         TextView productQuantity = view.findViewById(R.id.productQuantity);
         // nút xóa sản phẩm khỏi giỏ hàng
@@ -49,12 +49,12 @@ public class CartListAdapter extends ArrayAdapter<CartItem> {
         ImageView btMinus = view.findViewById(R.id.btMinus);
 
         // Hiển thị thông tin sản phẩm trong giỏ hàng
-        productName.setText(cartItem.getProductName());
+        productTitle.setText(cartItem.getTitle());
         productPrice.setText("Price: $" + cartItem.getPrice());
         productQuantity.setText("Quantity: " + cartItem.getQuantity());
 
         // Load ảnh sản phẩm bằng Picasso
-        String imageUrl = "http://192.168.100.3:8080/hello-web-app/img/" + cartItem.getImage();
+        String imageUrl = "http://192.168.1.25:8080/hello-web-app/img/" + cartItem.getImage();
         Picasso.get().load(imageUrl).into(productImage);
 
         // Xử lý sự kiện click để xóa sản phẩm khỏi giỏ hàng

@@ -1,5 +1,6 @@
 package com.cgm.hello_android_app_k15pm06.service;
 
+import com.cgm.hello_android_app_k15pm06.CartCheckout.CheckoutData;
 import com.cgm.hello_android_app_k15pm06.entities.Product;
 
 import java.util.List;
@@ -30,7 +31,8 @@ public interface ProductService {
     Call<Product> getProduct(@Path("id") int id);
 
 
-
+    @POST("checkout")
+    Call<Void> createCheckout(@Body CheckoutData checkoutData);
 
 
 }

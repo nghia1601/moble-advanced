@@ -53,18 +53,20 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 // Chuyển đến trang cart
                 Intent intent = new Intent(MainActivity.this, CartActivity.class);
+
                 startActivity(intent);
+
             }
         });
 
         // Initialize Retrofit và ProductService
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://192.168.100.5:8080/hello-web-app/rest/")
+                .baseUrl("http://192.168.1.25:8080/hello-web-app/rest/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         productService = retrofit.create(ProductService.class);
 
-        // Gọi API để lấy danh sách sản phẩm
+        // Gọi API để lấy danh sách sản phẩm q
         loadProductList();
 
         // Đăng ký menu context cho ListView

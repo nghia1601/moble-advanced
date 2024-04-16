@@ -1,13 +1,15 @@
 package com.cgm.hello_android_app_k15pm06.Cart;
 
+import android.content.Intent;
 import android.os.Bundle;
-import android.widget.ArrayAdapter;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.cgm.hello_android_app_k15pm06.Cart.CartItem;
+import com.cgm.hello_android_app_k15pm06.CartCheckout.CheckoutActivity;
 import com.cgm.hello_android_app_k15pm06.R;
 
 import java.util.List;
@@ -40,10 +42,22 @@ public class CartActivity extends AppCompatActivity {
         totalPriceTextView.setText("Total Price: $" + totalPrice);
 
 
+        // nút thanh toán
+        Button checkoutButton = findViewById(R.id.checkoutButton);
+        checkoutButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Chuyển sang trang thanh toán
+                Intent intent = new Intent(CartActivity.this, CheckoutActivity.class);
+                startActivity(intent);
+            }
+        });
+
+
+
     }
 
 
 
 
 }
-

@@ -6,6 +6,17 @@
     android:orientation="vertical"
     android:padding="16dp">
 
+    <!-- Tiêu đề "Thêm Sản Phẩm" -->
+    <TextView
+        android:id="@+id/textViewAddProductTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Thêm Sản Phẩm"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:layout_marginBottom="18dp"/>
+
+    <!-- Tiêu đề và EditText cho Title -->
     <TextView
         android:id="@+id/textViewTitle"
         android:layout_width="wrap_content"
@@ -21,6 +32,7 @@
         android:layout_marginTop="8dp"
         android:hint="Enter title" />
 
+    <!-- Tiêu đề và EditText cho Price -->
     <TextView
         android:id="@+id/textViewPrice"
         android:layout_width="wrap_content"
@@ -36,6 +48,7 @@
         android:hint="Price"
         android:inputType="numberDecimal" />
 
+    <!-- Tiêu đề và EditText cho Description -->
     <TextView
         android:id="@+id/textViewDescription"
         android:layout_width="wrap_content"
@@ -50,6 +63,7 @@
         android:layout_height="wrap_content"
         android:hint="Description" />
 
+    <!-- Tiêu đề và EditText cho Category -->
     <TextView
         android:id="@+id/textViewCategory"
         android:layout_width="wrap_content"
@@ -64,6 +78,7 @@
         android:layout_height="wrap_content"
         android:hint="Category" />
 
+    <!-- Tiêu đề và EditText cho Image -->
     <TextView
         android:id="@+id/textViewImage"
         android:layout_width="wrap_content"
@@ -77,11 +92,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Image URL" />
+
+    <!-- Button để thêm sản phẩm -->
     <Button
         android:id="@+id/btnAddProduct"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:text="Update" />
+        android:text="Add" />
 
 </LinearLayout>

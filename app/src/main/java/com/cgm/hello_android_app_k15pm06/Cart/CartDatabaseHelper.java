@@ -6,8 +6,9 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 public class CartDatabaseHelper extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "cart.db";
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 3;
 
+    // khơi tạo lớp CartDatabaseHelper
     public CartDatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
@@ -18,7 +19,7 @@ public class CartDatabaseHelper extends SQLiteOpenHelper {
         String CREATE_CART_TABLE = "CREATE TABLE cart (" +
                 "id INTEGER PRIMARY KEY AUTOINCREMENT," +
                 "productId INTEGER," +
-                "productName TEXT," +
+                "title TEXT," +
                 "quantity INTEGER," +
                 "price REAL," +
                 "image TEXT)"; // Thêm cột hình ảnh

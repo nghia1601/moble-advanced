@@ -1,18 +1,20 @@
 package com.cgm.hello_android_app_k15pm06.Cart;
 
+import com.google.gson.annotations.SerializedName;
+
 public class CartItem {
     private int id;
     private int productId;
-    private String productName;
+    private String title;
     private int quantity;
     private double price;
     private String image;
 
 
-    public CartItem(int id, int productId, String productName, int quantity, double price, String image) {
+    public CartItem(int id, int productId, String title, int quantity, double price, String image) {
         this.id = id;
         this.productId = productId;
-        this.productName = productName;
+        this.title = title;
         this.quantity = quantity;
         this.price = price;
         this.image = image;
@@ -36,12 +38,12 @@ public class CartItem {
         this.productId = productId;
     }
 
-    public String getProductName() {
-        return productName;
+    public String getTitle() {
+        return title;
     }
 
-    public void setProductName(String productName) {
-        this.productName = productName;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public int getQuantity() {
