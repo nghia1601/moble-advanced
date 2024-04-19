@@ -8,4 +8,8 @@
     <item
         android:id="@+id/delete_product"
         android:title="Delete Product" />
+    <item
+        android:id="@+id/logout"
+        android:title="Logout" />
+
 </menu>

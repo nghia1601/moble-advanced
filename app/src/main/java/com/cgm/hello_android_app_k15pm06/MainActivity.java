@@ -1,17 +1,25 @@
 package com.cgm.hello_android_app_k15pm06;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.util.Log;
 import android.view.ContextMenu;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import android.widget.AdapterView;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.cgm.hello_android_app_k15pm06.Cart.CartActivity;
@@ -46,6 +54,37 @@ public class MainActivity extends AppCompatActivity {
 
         productListView = findViewById(R.id.productListView);
 
+        // Toolbar
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+        // Enable the Up button
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+
+        //su ly thong tin tim kiem theo ten
+        EditText searchEditText = findViewById(R.id.editTextSearch);
+        searchEditText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                loadProductList();
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                // Không cần xử lý ở đây
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                // Khi người dùng thay đổi nội dung của EditText
+                // Tải lại danh sách sản phẩm với từ khóa tìm kiếm mới
+                searchProduct(s.toString().trim());
+            }
+        });
+
+
+
         ImageView cartIcon = findViewById(R.id.cartIcon);
         // Gắn sự kiện click cho biểu tượng cart
         cartIcon.setOnClickListener(new View.OnClickListener() {
@@ -59,9 +98,11 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+
+
         // Initialize Retrofit và ProductService
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://192.168.1.25:8080/hello-web-app/rest/")
+                .baseUrl("http://192.168.100.8:8080/hello-web-app/rest/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         productService = retrofit.create(ProductService.class);
@@ -170,4 +211,29 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+
+    private void searchProduct(String keyword) {
+        Log.d("Search", "Searching for: " + keyword);
+        Call<List<Product>> call = productService.searchProductsByTitle(keyword);
+        call.enqueue(new Callback<List<Product>>() {
+            @Override
+            public void onResponse(Call<List<Product>> call, Response<List<Product>> response) {
+                if (response.isSuccessful()) {
+                    productList = response.body();
+                    updateListView();
+                } else {
+                    Toast.makeText(MainActivity.this, "No products found", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<Product>> call, Throwable t) {
+                Toast.makeText(MainActivity.this, "Failed to search products", Toast.LENGTH_SHORT).show();
+                Log.e("Search", "Failed to search for products: " + t.getMessage());
+            }
+        });
+    }
+
+
+
 }

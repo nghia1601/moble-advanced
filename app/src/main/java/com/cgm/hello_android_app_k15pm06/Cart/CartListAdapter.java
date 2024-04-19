@@ -34,7 +34,7 @@ public class CartListAdapter extends ArrayAdapter<CartItem> {
         if (view == null) {
             view = LayoutInflater.from(context).inflate(R.layout.cart_list_item, parent, false);
         }
-
+        // lay vi tri hien tai cua cartItemList
         final CartItem cartItem = cartItemList.get(position);
 
         // Ánh xạ các thành phần của layout
@@ -54,7 +54,7 @@ public class CartListAdapter extends ArrayAdapter<CartItem> {
         productQuantity.setText("Quantity: " + cartItem.getQuantity());
 
         // Load ảnh sản phẩm bằng Picasso
-        String imageUrl = "http://192.168.1.25:8080/hello-web-app/img/" + cartItem.getImage();
+        String imageUrl = "http://192.168.100.8:8080/hello-web-app/img/" + cartItem.getImage();
         Picasso.get().load(imageUrl).into(productImage);
 
         // Xử lý sự kiện click để xóa sản phẩm khỏi giỏ hàng

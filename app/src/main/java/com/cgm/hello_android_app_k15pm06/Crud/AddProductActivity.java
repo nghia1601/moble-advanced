@@ -42,7 +42,7 @@ public class AddProductActivity extends AppCompatActivity {
 
         // Khởi tạo Retrofit và ProductService
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://192.168.1.25:8080/hello-web-app/rest/")
+                .baseUrl("http://192.168.100.8:8080/hello-web-app/rest/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         productService = retrofit.create(ProductService.class);

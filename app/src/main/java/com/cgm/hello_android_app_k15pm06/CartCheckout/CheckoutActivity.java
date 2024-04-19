@@ -1,5 +1,8 @@
 package com.cgm.hello_android_app_k15pm06.CartCheckout;
 
+
+
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -12,6 +15,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.cgm.hello_android_app_k15pm06.Cart.CartItem;
 import com.cgm.hello_android_app_k15pm06.Cart.CartManager;
+import com.cgm.hello_android_app_k15pm06.MainActivity;
 import com.cgm.hello_android_app_k15pm06.R;
 import com.cgm.hello_android_app_k15pm06.service.ProductService;
 import com.google.gson.Gson;
@@ -36,7 +40,7 @@ public class CheckoutActivity extends AppCompatActivity {
 
 
     private CartManager cartManager;
-    private static final String BASE_URL = "http://192.168.1.25:8080/hello-web-app/";
+    private static final String BASE_URL = "http://192.168.100.8:8080/hello-web-app/";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,8 +72,11 @@ public class CheckoutActivity extends AppCompatActivity {
         confirmPaymentButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 confirmPayment();
+
             }
+
         });
     }
 
@@ -122,6 +129,11 @@ public class CheckoutActivity extends AppCompatActivity {
             public void onResponse(Call<Void> call, Response<Void> response) {
                 if (response.isSuccessful()) {
                     Toast.makeText(CheckoutActivity.this, "Thanh toán thành công", Toast.LENGTH_SHORT).show();
+                    cartManager.clearCart();
+                    // Khởi tạo Intent để quay về MainActivity
+                    Intent intent = new Intent(CheckoutActivity.this, MainActivity.class);
+                    startActivity(intent);
+                    finish(); // Đóng CheckoutActivity
                 } else {
                     Toast.makeText(CheckoutActivity.this, "Có lỗi xảy ra. Vui lòng thử lại sau", Toast.LENGTH_SHORT).show();
                 }

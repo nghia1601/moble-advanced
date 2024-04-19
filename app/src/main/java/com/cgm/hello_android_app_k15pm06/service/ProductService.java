@@ -12,6 +12,7 @@ import retrofit2.http.Body;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
 import retrofit2.http.Path;
+import retrofit2.http.Query;
 
 public interface ProductService {
 
@@ -27,12 +28,15 @@ public interface ProductService {
     @DELETE("products/delete/{id}")
     Call<Void> deleteProduct(@Path("id") int id);
 
-    @GET("products/get/{id}")
-    Call<Product> getProduct(@Path("id") int id);
+
+    @GET("products/get/{title}")
+    Call<List<Product>> searchProductsByTitle(@Path("title") String title);
 
 
     @POST("checkout")
     Call<Void> createCheckout(@Body CheckoutData checkoutData);
+
+
 
 
 }
